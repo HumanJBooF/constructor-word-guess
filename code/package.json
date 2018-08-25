@@ -1,0 +1,14 @@
+{
+  "name": "constructor-word-guess",
+  "version": "1.0.0",
+  "description": "use contructors to make a console word guess game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HumanJBooF",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^6.2.0"
+  }
+}
