@@ -13,6 +13,7 @@
 * JavaScript
 * NPM inquirer
 * NPM chalk
+* NPM figlet
 
 #### Screenshot
 ![cli](./img/cli.PNG)

@@ -2,6 +2,7 @@
 const Word = require("./word.js"); //use this page
 const inquirer = require("inquirer"); //NPM inquirer to ask a question
 const chalk = require("chalk"); //Color it up ;)
+const figlet = require("figlet"); //used to create a welcome screen
 
 //list of words to choose from
 const wordBank = [
@@ -22,6 +23,15 @@ let select = 0; //make this an int so we can randomize
 let wordChosen = ''; //this is used to check is word is solved later on
 let wordUsed = '';
 let counter = 0; //guess counter
+
+figlet('Welcome!', function (err, data) {
+    if (err) {
+        console.log(chalk`{bgWhite.red ERROR: ${err}}`);
+        return;
+    }
+    console.log(chalk`{red ${data}}`);
+    startGame();
+});
 
 //grabs a word from the word bank
 const startGame = () => {
@@ -129,4 +139,3 @@ const continuePrompt = () => {
         }
     });
 }
-startGame()
