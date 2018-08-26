@@ -9,6 +9,7 @@
   "author": "HumanJBooF",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.4.1",
     "inquirer": "^6.2.0"
   }
 }
