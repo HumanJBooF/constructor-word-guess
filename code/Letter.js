@@ -1,29 +1,24 @@
-const chalk = require('chalk');
-let input = process.argv[2]
-
 let Letter = function (value) {
 
-  this.value = value,
-    this.guessed = false,
-
-    this.showChar = function () {
-      console.log(chalk`{red.bgWhite ${this.guessed}}`);
-      return this.guessed ? this.value : '_';
-    };
-
+  this.value = value;
+  this.guessed = false;
+  //display the letter if its guessed, a underscore if not guessed and avoid spaces as underscored :) 
+  this.showChar = function () {
+    if (this.value === " ") {
+      return " ";
+    } else if (!this.guessed) {
+      return "_";
+    } else {
+      return this.value;
+    }
+  };
+  //this will change the guessed to true so it will display the letter
   this.check = function (newGuess) {
-    if (this.value.toLowercase() === newGuess.toLowercase()) {
+    if (this.value.toUpperCase() === newGuess.toUpperCase()) {
       this.guessed = true;
     }
   };
 };
-
-let newLetter = new Letter(input)
-
-console.log(newLetter.toString())
-
-
-
 
 
 module.exports = Letter;
