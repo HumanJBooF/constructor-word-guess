@@ -24,14 +24,21 @@ let wordChosen = ''; //this is used to check is word is solved later on
 let wordUsed = '';
 let counter = 0; //guess counter
 
-figlet('Welcome!', function (err, data) {
-    if (err) {
-        console.log(chalk`{bgWhite.red ERROR: ${err}}`);
-        return;
-    }
-    console.log(chalk`{red ${data}}`);
-    startGame();
-});
+//welcome design with NPM figlet
+const welcomeScreen = () => {
+    figlet('Welcome!', {
+        font: 'cosmike',
+        horizontalLayout: 'default',
+        verticalLayout: 'default'
+    }, function (err, data) {
+        if (err) {
+            console.log(chalk`{bgWhite.red ERROR: ${err}}`);
+            return;
+        }
+        console.log(chalk`{red ${data}}`);
+        startGame();
+    });
+}
 
 //grabs a word from the word bank
 const startGame = () => {
@@ -87,7 +94,7 @@ const startPrompt = () => {
 }
 //check if user input is correct
 const checkAnswer = (data) => {
-    //compare the letter to see if correct and check the format
+    //compare the letter to see if correct and check the format using regex :)
     if ((data.letter.length === 1) && /^[a-zA-Z]+$/.test(data.letter)) {
         let dataCheck = data.letter.toUpperCase();
         let tempCheck = wordUsed.showWord();
@@ -135,7 +142,19 @@ const continuePrompt = () => {
         if (data.continue === 'Yes') {
             startGame();
         } else {
-            console.log(chalk`{bgRed.bold GOODBYE!}`);
+            figlet('Goodbye!', {
+                font: 'cosmike',
+                horizontalLayout: 'default',
+                verticalLayout: 'default'
+            }, function (err, data) {
+                if (err) {
+                    console.log(chalk`{bgWhite.red ERROR: ${err}}`);
+                    return;
+                }
+                console.log(chalk`{red ${data}}`);
+            });
         }
     });
 }
+
+welcomeScreen();
