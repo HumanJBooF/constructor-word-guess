@@ -26,19 +26,10 @@ let counter = 0; //guess counter
 
 //welcome design with NPM figlet
 const welcomeScreen = () => {
-    figlet('Welcome!', {
-        font: 'cosmike',
-        horizontalLayout: 'default',
-        verticalLayout: 'default'
-    }, function (err, data) {
-        if (err) {
-            console.log(chalk`{bgWhite.red ERROR: ${err}}`);
-            return;
-        }
-        console.log(chalk`{red ${data}}`);
+    figLet('Welcome \r\n', () => {
         startGame();
     });
-}
+};
 
 //grabs a word from the word bank
 const startGame = () => {
@@ -66,7 +57,7 @@ const startGame = () => {
     }
     console.log(chalk`\n {bgRed.bold You get 10 guesses to find the movie name} \n`);
     startPrompt();
-}
+};
 
 //function to start inquirer
 const startPrompt = () => {
@@ -81,17 +72,19 @@ const startPrompt = () => {
         ]).then(data => {
             checkAnswer(data); //check the letter pressed
         })
-    } else { //start a new game if out of guesses
+    } else { //log name of movie then start a new game
         console.log(chalk`{bgRed.bold Sorry, no more guesses for you!}`);
         console.log(chalk`{bgRed.bold The name of the movie is }`)
-        console.log(chalk`{bgWhite.red.bold "${wordChosen}"} \n`);
-        wordChosen = '';
-        wordUsed = '';
-        select = 0;
-        counter = 0;
-        continuePrompt();
+        figLet(wordChosen, () => {
+            console.log(`In the callback`)
+            wordChosen = '';
+            wordUsed = '';
+            select = 0;
+            counter = 0;
+            continuePrompt();
+        });
     }
-}
+};
 //check if user input is correct
 const checkAnswer = (data) => {
     //compare the letter to see if correct and check the format using regex :)
@@ -117,14 +110,14 @@ const checkAnswer = (data) => {
 const checkRight = () => {
     console.log(chalk`\n {bold.green Correct!!} \n`);
     if (wordChosen.replace(/ /g, "") == (wordUsed.showWord()).replace(/ /g, "")) { //if the word is filled in the game restarts
-        console.log(chalk`{bgRed.bold.white Your movie is...}`)
-        console.log(chalk`{bgWhite.red.bold "${wordUsed.showWord()}"}`);
-        console.log(chalk`{bgRed.white.bold YOU WIN!} \n`);
-        wordUsed = '';
-        wordChosen = '';
-        select = 0;
-        counter = 0;
-        continuePrompt();
+        console.log(chalk`{bgRed.bold.white YOU WIN! \r\n Your movie is...}`)
+        figLet(wordUsed.showWord(), () => {
+            wordUsed = '';
+            wordChosen = '';
+            select = 0;
+            counter = 0;
+            continuePrompt();
+        });
     } else {
         startPrompt();
     }
@@ -142,18 +135,26 @@ const continuePrompt = () => {
         if (data.continue === 'Yes') {
             startGame();
         } else {
-            figlet('Goodbye!', {
-                font: 'cosmike',
-                horizontalLayout: 'default',
-                verticalLayout: 'default'
-            }, function (err, data) {
-                if (err) {
-                    console.log(chalk`{bgWhite.red ERROR: ${err}}`);
-                    return;
-                }
-                console.log(chalk`{red ${data}}`);
+            figLet('Goodbye! \r\n', () => {
+
             });
         }
+    });
+}
+
+const figLet = (word, cb) => {
+    console.log(cb)
+    figlet(word, {
+        font: 'cosmike',
+        horizontalLayout: 'default',
+        verticalLayout: 'default'
+    }, function (err, data) {
+        if (err) {
+            console.log(chalk`{bgWhite.red ERROR: ${err}}`);
+            return;
+        }
+        console.log(chalk`{red \r\n ${data}}`);
+        cb();
     });
 }
 
