@@ -1,6 +1,6 @@
 const Letter = require("./letter.js"); //use letter.js
 
-let Word = function (letters) {
+const Word = function (letters) {
 
     this.letters = letters;
     this.letterArr = [];

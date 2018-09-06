@@ -1,4 +1,4 @@
-let Letter = function (value) {
+const Letter = function (value) {
 
   this.value = value;
   this.guessed = false;
